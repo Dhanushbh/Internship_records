@@ -26,3 +26,6 @@ data.sort()
 print("Sorted data:", data)
 data.reverse()
 print("Reversed data:", data)
+##################################
+
+
