@@ -1,0 +1,1 @@
+Name: Dhanush, Daily Goal: Practice append vs write in files
