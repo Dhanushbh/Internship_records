@@ -1,73 +1,82 @@
 import random
+import time
 
-print("🎮 === RoboController 1.0 (Console Game) === 🎮\n")
+print("🎮 === RoboController 1.0 (Terminal Game) === 🎮\n")
 
-# Inputs
+# --- User Inputs ---
 robot_name = input("Enter robot name: ")
-boat_name = input("Enter boat name: ")
-target_distance = int(input("Enter target distance (meters): "))
 
+while True:
+    try:
+        target_distance = int(input("Enter target distance (meters): "))
+        break
+    except ValueError:
+        print("❌ Please enter a valid number (e.g., 50, 100).")
+
+# --- Initial State ---
+x, y = 0, 0
 distance_travelled = 0
 checkpoints = []
-
 directions = ["up", "down", "left", "right"]
+current_dir = random.choice(directions)
 
-print("\nGame Started! Control the robot using: up / down / left / right\n")
+print("\n🤖 Robot is moving automatically...\n")
 
-# Obstacle loop (game loop)
+# --- Game Loop ---
 while distance_travelled < target_distance:
-    move = input("Your move (up/down/left/right): ").lower()
+    print("-" * 50)
+    print(f"🤖 Robot: {robot_name}")
+    print(f"📍 Position: ({x}, {y})")
+    print(f"➡ Current Direction: {current_dir}")
 
-    if move not in directions:
-        print("❌ Invalid move! Try again.")
-        continue
-
-    # Random obstacle
+    # Obstacle check
     obstacle = random.choice([True, False])
-
-    # Nested if for wall handling
     if obstacle:
-        print("🚧 Obstacle ahead!")
-        speed = 2
+        print("🚧 Obstacle detected! Robot slows down.")
 
-        wall = random.choice([True, False])
-        if wall:
-            print("🧱 Wall detected! Direction changed.")
-            move = random.choice(directions)
-            print("➡ New direction:", move)
+    # Movement logic (nested if for wall handling)
+    dx, dy = 0, 0
+    if current_dir == "up":
+        dx = 1
+    elif current_dir == "down":
+        dx = -1
+    elif current_dir == "left":
+        dy = -1
+    elif current_dir == "right":
+        dy = 1
+
+    # Wall detection
+    wall = random.choice([True, False])
+    if wall:
+        print("🧱 Wall found! Changing direction automatically...")
+        current_dir = random.choice(directions)
+        print(f"➡ New direction: {current_dir}")
     else:
-        if distance_travelled < target_distance // 2:
+        x += dx
+        y += dy
+
+        # Speed decision (if–elif–else)
+        if obstacle:
+            speed = 2
+        elif distance_travelled < target_distance // 2:
             speed = 6
-            print("✅ Clear path, moving fast.")
         else:
             speed = 3
-            print("⚠ Near target, moving carefully.")
 
-    distance_travelled += speed
-    checkpoints.append(move)
+        distance_travelled += speed
+        checkpoints.append(current_dir)
+        print(f"➡ Robot moved {current_dir.upper()} by {speed} meters")
 
-    print(f"🤖 {robot_name} moved {move} by {speed}m")
-    print(f"📏 Total distance: {distance_travelled}/{target_distance} meters")
+    print(f"📏 Distance Travelled: {distance_travelled}/{target_distance} m")
+    print(f"📌 Checkpoints: {checkpoints}")
 
-    # Random unexpected direction change
-    if random.choice([True, False]):
-        rand_dir = random.choice(directions)
-        checkpoints.append(rand_dir)
-        print("🔄 Unexpected turn:", rand_dir)
+    print("⏸ Human pause (2 seconds)...\n")
+    time.sleep(2)
 
-    # Option to remove checkpoint
-    remove_cp = input("Remove last checkpoint? (yes/no): ").lower()
-    if remove_cp == "yes" and checkpoints:
-        removed = checkpoints.pop()
-        print("❌ Removed checkpoint:", removed)
-n
-    print("📍 Checkpoints so far:", checkpoints)
-    print("-" * 40)
-
-print("\n🏁 === GAME OVER: TRIP SUMMARY === 🏁")
-print(f"🤖 Robot Name      : {robot_name}")
-print(f"🚤 Boat Name       : {boat_name}")
-print(f"🎯 Target Distance : {target_distance} meters")
-print(f"📏 Travelled       : {distance_travelled} meters")
-print(f"📍 Final Checkpoints: {checkpoints}")
-print("✅ Mission Completed!")
+# --- Final Summary ---
+print("\n🏁 === TRIP SUMMARY === 🏁")
+print(f"🤖 Robot Name        : {robot_name}")
+print(f"🎯 Target Distance   : {target_distance} meters")
+print(f"📏 Total Travelled   : {distance_travelled} meters")
+print(f"📌 Final Checkpoints : {checkpoints}")
+print("✅ Mission Completed Successfully!")
