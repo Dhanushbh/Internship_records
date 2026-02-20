@@ -1,0 +1,15 @@
+=== Students Table ===
+ id   name
+  1  Alice
+  2    Bob
+  3   John
+  4   Mike
+  5 Olivia
+
+=== JOIN Result (Students + Departments) ===
+  name           dept
+ Alice   Data Science
+   Bob        Web Dev
+  John             AI
+  Mike Cyber Security
+Olivia   Data Science
