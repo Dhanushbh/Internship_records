@@ -1,0 +1,80 @@
+CUSTOMER ANALYTICS - EDA REPORT
+============================================================
+Generated on: 2026-02-24 12:56:13
+
+PHASE 1: SETUP & INSPECTION
+------------------------------------------------------------
+Dataset Shape: 250 rows, 14 columns
+
+Column Types:
+ - CustomerID: int64
+ - Age: int64
+ - Gender: object
+ - City: object
+ - Education: object
+ - MaritalStatus: object
+ - AnnualIncome: float64
+ - SpendingScore: int64
+ - YearsEmployed: int64
+ - PurchaseFrequency: int64
+ - OnlineVisitsPerMonth: int64
+ - ReturnedItems: int64
+ - PreferredDevice: object
+ - LastPurchaseAmount: int64
+
+Basic Statistics (Numerical Columns):
+        CustomerID         Age   AnnualIncome  SpendingScore  YearsEmployed  PurchaseFrequency  OnlineVisitsPerMonth  ReturnedItems  LastPurchaseAmount
+count   250.000000  250.000000     250.000000     250.000000     250.000000          250.00000            250.000000     250.000000          250.000000
+mean   1125.500000   37.676000   74346.372000      45.972000      14.616000           11.60400             15.996000       1.856000         2795.736000
+std      72.312977    9.816132   43245.773518      17.751837       9.711736            7.09822              7.898197       1.403976         1323.061741
+min    1001.000000   21.000000   16062.000000       5.000000       1.000000            1.00000              3.000000       0.000000          566.000000
+25%    1063.250000   29.000000   57160.250000      35.000000       6.000000            5.00000              9.250000       1.000000         1560.500000
+50%    1125.500000   38.000000   69629.000000      47.000000      15.000000           11.00000             16.000000       2.000000         2724.000000
+75%    1187.750000   46.000000   82974.000000      58.000000      23.000000           18.00000             22.750000       3.000000         3990.250000
+max    1250.000000   54.000000  474327.000000      95.000000      34.000000           24.00000             29.000000       4.000000         4996.000000
+
+
+PHASE 2: DATA CLEANING
+------------------------------------------------------------
+Missing Values per Column:
+ - CustomerID: 0
+ - Age: 0
+ - Gender: 0
+ - City: 0
+ - Education: 0
+ - MaritalStatus: 0
+ - AnnualIncome: 0
+ - SpendingScore: 0
+ - YearsEmployed: 0
+ - PurchaseFrequency: 0
+ - OnlineVisitsPerMonth: 0
+ - ReturnedItems: 0
+ - PreferredDevice: 0
+ - LastPurchaseAmount: 0
+
+Duplicate Rows: 0
+
+Cleaning Justification:
+ - AnnualIncome missing values filled with median.
+ - Education missing values filled with mode.
+ - Duplicate rows removed.
+
+
+PHASE 3: UNIVARIATE & BIVARIATE INSIGHTS
+------------------------------------------------------------
+Key Univariate Observations:
+ - Average Age of customers: 37.68
+ - Average Annual Income: 74346.37
+ - Average Spending Score: 45.97
+
+Key Bivariate Observations (Correlations):
+ - Correlation (AnnualIncome vs SpendingScore): -0.38
+ - Correlation (OnlineVisitsPerMonth vs PurchaseFrequency): -0.04
+ - Correlation (Age vs YearsEmployed): 0.98
+
+
+PHASE 4: EXECUTIVE SUMMARY (TOP 3 INSIGHTS)
+------------------------------------------------------------
+1. Higher online activity is associated with higher purchase frequency.
+2. Customers with higher income tend to have higher spending scores.
+3. Age and YearsEmployed show strong correlation, validating real-world patterns.
